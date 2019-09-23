@@ -1,0 +1,47 @@
+ 
+body {
+	margin: 0px;
+	width: auto;
+	background-color: #eee;
+	border-left: 10px solid skyblue;
+	word-wrap: break-word;
+	font-size: 1em;
+	font-family: Consolas,"courier new";
+}
+
+.console{
+	margin: 0px; 
+	padding: 0px; 
+	margin-block-start: 0px; 
+	margin-block-end: 0px; 
+	margin-inline-start: 0px; 
+	margin-inline-end: 0px; 
+	border-bottom: 1px solid #dee;
+}
+
+.console:hover{
+	background-color: #eff;
+}
+
+.symbol{
+	font-weight:bolder;
+	font-size: 0.8em !important;
+}
+.log{
+	color:black;
+}
+
+.error{
+	color:red;
+	font-weight:bold;
+}
+
+.warn{
+	color:green;
+	font-weight:bold;
+}
+
+.info{
+	color:blue;
+	font-weight:bold;
+}

@@ -1,0 +1,29 @@
+{
+  "name": "jspad",
+  "version": "1.0.0",
+  "description": "JSpad is an offline JavaScript Editor where you can quickly write and test your JS code on your browser (Chrome). I got tired of using chrome console or online tools to test and try my js code. ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leokamwathi/JSpad.git"
+  },
+  "keywords": [
+    "javascript",
+    "pad",
+    "jspad",
+    "jsnotebook",
+    "jseditor",
+    "offine",
+    "js",
+    "editor"
+  ],
+  "author": "Leo Kamwathi",
+  "license": "CDDL-1.0",
+  "bugs": {
+    "url": "https://github.com/leokamwathi/JSpad/issues"
+  },
+  "homepage": "https://github.com/leokamwathi/JSpad#readme"
+}
