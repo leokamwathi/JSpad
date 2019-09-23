@@ -7,7 +7,7 @@ yarn-error.log*
 
 # notepad ++ *.bak files
 *.bak
-
+*.bat
 # Runtime data
 pids
 *.pid
