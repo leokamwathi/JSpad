@@ -1,3 +1,5 @@
+d:
+cd "D:\LEO\project\GIT_Projects\JSpad\"
 git status
 git add .
 git status
