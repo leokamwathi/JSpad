@@ -3,7 +3,7 @@
  
  function includeHTML() {
   const htmlInclude = document.querySelectorAll('[includeHTML]');
-  
+   
   htmlInclude.forEach(
   (element) =>
   {
@@ -20,6 +20,8 @@
 					  element.removeAttribute("includeHTML");
 					}
 				  }
+				xhttp.open("GET", src, true);
+				xhttp.send();
 			  }
 		}catch(error){
 			element.innerHTML += "<br/><b>ERROR!!! "+ error.message +" <br/>While retriving IncludeHTML file (" + src + ").</b>";

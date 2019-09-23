@@ -123,7 +123,9 @@ function clearConsole()
 	//myIframe.contentWindow.document.head.innerText = '';
 	
 	myIframe.contentWindow.document.location.reload();
-	
+	myIframe.contentWindow.document.body.scrollTop = myIframe.contentWindow.document.body.scrollHeight;
+	document.body.scrollTop = document.body.scrollHeight;
+	//myIframe.scrollTop = myIframe.scrollHeight;
 	//iFrameSetup();
 }
 
@@ -164,6 +166,7 @@ script.textContent = _try + 'console.log(eval(`'+window.editor.getValue().replac
 //script.textContent = logHack + _try + 'eval(`'+document.getElementById("codearea").innerText.replace('`',"'") +'`)'+ _catch;
 
 myIframe.contentWindow.document.head.appendChild(script);
+myIframe.contentWindow.document.body.scrollTop = myIframe.contentWindow.document.body.scrollHeight
 
 }
 	function colorcoding() {
