@@ -1,0 +1,91 @@
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  text-transform:uppercase;
+}
+
+/* Change the link color to #111 (black) on hover */
+nav li a:hover {
+  background-color: #111;
+}
+
+#btnRun a{
+	background-color: green !important;
+	color: #fff !important;
+}
+
+#btnRun a:hover{
+	background-color: lightgreen !important;
+	color: #fff !important;
+}
+
+/*
+#navxx{
+	height:6%!important;
+	min-height: 30px!important;
+	display:block !important;
+}
+
+xnav {
+    width: auto;
+    height:6%!important;
+	min-height: 30px!important;
+	display:block !important;
+}
+
+#nav ul {
+  display: block;
+  margin: 0; padding: 0;
+  margin-bottom: 32px;
+}
+
+
+#nav ul li {
+  display: inline-block;
+  height:100%;
+  width: auto;
+}
+
+#nav ul li a{
+	background-color: #aaa;
+	height:100%;
+	width: auto;
+	padding:15px;
+	color: #333;
+	text-decoration:none;
+	text-transform:uppercase;
+	border-left: 1px solid silver;
+}
+#nav ul li a:hover {
+  background-color: skyblue;
+  border-bottom: 1px solid #E30808;
+  color: #fff;
+}
+*/
+
+#console-log{
+	overflow: auto;
+	font-size: 0.8em;
+	border:none;
+	background-color:#eee;
+	height: 100%;
+	width:100%;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;	
+	}

@@ -1,10 +1,11 @@
 /*
-IDEAS LIST
-[FOCUS ON JAVASCRIPT ONLY]
+IDEA/WISH LIST
+[FOCUS ON JAVASCRIPT ONLY NO CSS or HTML]
 -Add to Chrome Extenstions. Offline JS editor. (Make a version just for this)
 -Add save/load to disk
 -Add auto save
--Excute code in worked (Timeout errors etc)
+-Excute code works (Capture Timeout errors etc try using worker)
+-Colaboration  using Together.JS - may be webrtc. 
 -cloudsaving and auth with firebase - ONLINE
 -Code forking and sharing (twitter and fb - even email sharing)
 -Add load test files (way to create tests) - Learners EDITION - tests for novice to advanced learners.
@@ -20,6 +21,7 @@ IDEAS LIST
 -My CODE PEN :-P
 --Add CSS editor
 --ADD HTML editor (May be we will see)
+-Print the call stack. (console.log(new Error().stack);)  good for errors
 */
 
 //dom elements
@@ -48,6 +50,8 @@ if (window.console && console) {
 							msg ='<p class="console '+c+'"><span class="symbol">'+fakeInput+'</span> '+msg+'</p>';
 						}else if(c=='error'){
 							msg = '<p class="console '+c+'"><span class="symbol">'+fakeInput+'</span> '+msg+'</p>';
+						}else if(c=='trace'){
+							msg = '<p class="console '+c+'"><span class="symbol">'+fakeInput+'</span> Trace Output<br/>'+msg+'</p>';
 						}else{
 							msg ='<p class="console info"><span class="symbol">'+fakeInput+'</span> '+msg+'</p>';
 						}
@@ -94,9 +98,16 @@ document.getElementById("code").value = window.editor.getValue();
 //localStorage.setItem('code', document.getElementById("code").value.replace('`',"'").replace(/[\u0000-\u0008\u0010-\u0019\u00ad\u200b-\u200f\u2028\u2029\ufeff]/g,' ').replace(/\b\d*\n/g,'') );
 
 //document.getElementById("code").value = document.querySelector(".CodeMirror-code").innerText;
+/*
+let saveData = null;
 
+if(!localStorage.getItem('js_pad_save')){
+		
+}
+
+let saveData = localStorage.getItem('js_pad_save')
 localStorage.setItem('code',window.editor.getValue());
-
+*/
 console.log('CODE SAVED');
 }
 
@@ -144,10 +155,12 @@ script = myIframe.contentWindow.document.createElement("script");
 
 var _try = `try {
 `
-    
+//console.error(e);
+//console.trace();.replace('eval ','js_pad_script ')
+//replace('eval (eval','>>JSpad Script ').replace('(eval ','>>JSpad Script ').
 var _catch = `
 } catch (e) {
-    console.error(e);
+	console.error(e.stack.replace(/ [(]{1}eval/g,'()').split(" at ").join("<br/>&nbsp;&nbsp;&nbsp;at "));
 }`
 
 //'<p class="console error"><span class="symbol">&#65310;</span> '+e+'</p>'
@@ -161,7 +174,9 @@ document.getElementById("code").value = window.editor.getValue();
 //script.textContent = _try + 'console.log(eval(`'+document.getElementById("code").value.replace('`','\`').replace(/[\u0000-\u0008\u0010-\u0019\u00ad\u200b-\u200f\u2028\u2029\ufeff]/g,' ') +'`))'+ _catch;
 
 console.log(window.editor.getValue().replace(/`/g,'\\`'));
-script.textContent = _try + 'console.log(eval(`'+window.editor.getValue().replace(/`/g,'\\`')+'`))'+ _catch;
+//script.textContent = _try + 'console.log(eval(`'+window.editor.getValue().replace(/`/g,'\\`')+'`))'+ _catch;
+
+script.textContent = 'console.log(eval(`'+_try+window.editor.getValue().replace(/`/g,'\\`')+_catch+'`))';
 
 //script.textContent = logHack + _try + 'eval(`'+document.getElementById("codearea").innerText.replace('`',"'") +'`)'+ _catch;
 
