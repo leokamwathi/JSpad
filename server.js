@@ -5,11 +5,11 @@ var path = require('path');
 http.createServer(function (request, response) {
     console.log('request ', request.url);
 
-    var filePath = './src/' + request.url;
+    var filePath = './src' + request.url;
     if (filePath == './src/') {
         filePath = './src/index.html';
     }
-
+    console.log(filePath)
     var extname = String(path.extname(filePath)).toLowerCase();
     var mimeTypes = {
         '.html': 'text/html',

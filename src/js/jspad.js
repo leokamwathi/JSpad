@@ -91,12 +91,56 @@ myIframe.contentWindow.document.head.appendChild(cssLink);
 	
 }
 
+function importCode(){
+	//import code from a file.
+
+	try{
+		const file = document.getElementById('importedFile').files[0];
+		if(file){
+			// make sure its a js file. 
+			// may be we let the user decide. 
+			// What could go wrong - leo
+			const fileReader = new FileReader();
+			fileReader.onload = event => window.editor.setValue(event.target.result);
+			fileReader.onerror = error => console.error(error.message);
+			fileReader.readAsText(file);
+		}
+	}catch(e){
+		console.error(e.message);
+	}
+}
+
+function exportCode(){
+	try{
+		const blob = new Blob([window.editor.getValue()],{type:"application/javascript"})
+		const url = window.URL.createObjectURL(blob); 
+		const filename = "jspad_file_"+Date.now()+".js";
+		const a = document.createElement('a');
+		a.href= url;
+		a.download = filename;
+		a.innerText = "Download"
+		a.click();
+	}catch(e){
+		console.error(e.message);
+	}
+}
+
 function saveCode(){
 // Put the object into storage
-document.querySelectorAll(".cm-invalidchar").forEach((c)=>c.parentNode.removeChild(c));
-document.getElementById("code").value = window.editor.getValue();
-//localStorage.setItem('code', document.getElementById("code").value.replace('`',"'").replace(/[\u0000-\u0008\u0010-\u0019\u00ad\u200b-\u200f\u2028\u2029\ufeff]/g,' ').replace(/\b\d*\n/g,'') );
+try {
+	const savedJson = localStorage.getItem('jsPadSave') ? JSON.parse(localStorage.getItem('jsPadSave')) : {}
+	savedJson['new'] = JSON.stringify(window.editor.getValue())
+	localStorage.setItem('jsPadSave', JSON.stringify(savedJson))
+	console.log('CODE SAVED');
+	alert('Code Saved')
+} catch (error) {
+	alert(error.message)
+}
 
+
+
+
+//localStorage.setItem('code', document.getElementById("code").value.replace('`',"'").replace(/[\u0000-\u0008\u0010-\u0019\u00ad\u200b-\u200f\u2028\u2029\ufeff]/g,' ').replace(/\b\d*\n/g,'') );
 //document.getElementById("code").value = document.querySelector(".CodeMirror-code").innerText;
 /*
 let saveData = null;
@@ -108,19 +152,34 @@ if(!localStorage.getItem('js_pad_save')){
 let saveData = localStorage.getItem('js_pad_save')
 localStorage.setItem('code',window.editor.getValue());
 */
-console.log('CODE SAVED');
+
 }
 
 function loadCode(){
 	// Retrieve the object from storage
-document.getElementById("code").value = localStorage.getItem('code');
-console.log(localStorage.getItem('code'));
+// document.getElementById("code").value = localStorage.getItem('code');
+// console.log(localStorage.getItem('code'));
 
-document.querySelectorAll(".CodeMirror-code").forEach((c)=>c.parentNode.removeChild(c));
-document.querySelectorAll(".CodeMirror").forEach((c)=>c.parentNode.removeChild(c));
-colorcoding();
-document.querySelectorAll(".cm-invalidchar").forEach((c)=>c.parentNode.removeChild(c));
-console.log('CODE LOADED');
+// document.querySelectorAll(".CodeMirror-code").forEach((c)=>c.parentNode.removeChild(c));
+// document.querySelectorAll(".CodeMirror").forEach((c)=>c.parentNode.removeChild(c));
+// colorcoding();
+// document.querySelectorAll(".cm-invalidchar").forEach((c)=>c.parentNode.removeChild(c));
+
+	document.getElementById("code").value = window.editor.getValue();
+	try {
+		const savedJson = localStorage.getItem('jsPadSave') ? JSON.parse(localStorage.getItem('jsPadSave')) : {}
+		const codeOutput = JSON.parse(savedJson['new'].toString() || '')
+		window.editor.setValue(codeOutput)
+		console.log(codeOutput)
+
+		//document.getElementById("code").value = 
+		//= JSON.stringify(window.editor.getValue())
+
+		alert('Loaded Code')
+		console.log('CODE LOADED');
+	} catch (error) {
+		alert(error.message)
+	}
 }
 
 function clearConsole() 
@@ -153,12 +212,11 @@ if (script) {
 
 script = myIframe.contentWindow.document.createElement("script");
 
-var _try = `try {
-`
+let _try = `try {`
 //console.error(e);
 //console.trace();.replace('eval ','js_pad_script ')
 //replace('eval (eval','>>JSpad Script ').replace('(eval ','>>JSpad Script ').
-var _catch = `
+let _catch = `
 } catch (e) {
 	console.error(e.stack.replace(/ [(]{1}eval/g,'()').split(" at ").join("<br/>&nbsp;&nbsp;&nbsp;at "));
 }`
@@ -166,8 +224,8 @@ var _catch = `
 //'<p class="console error"><span class="symbol">&#65310;</span> '+e+'</p>'
 script.type = "text/javascript";
 script.setAttribute('id','myScript');
-document.querySelectorAll(".cm-invalidchar").forEach((c)=>c.parentNode.removeChild(c));
-document.getElementById("code").value = window.editor.getValue(); 
+// document.querySelectorAll(".cm-invalidchar").forEach((c)=>c.parentNode.removeChild(c));
+// document.getElementById("code").value = window.editor.getValue(); 
 
 //document.querySelector(".CodeMirror-code").innerText;
 
@@ -178,13 +236,11 @@ console.log(window.editor.getValue().replace(/`/g,'\\`'));
 
 script.textContent = 'console.log(eval(`'+_try+window.editor.getValue().replace(/`/g,'\\`')+_catch+'`))';
 
-//script.textContent = logHack + _try + 'eval(`'+document.getElementById("codearea").innerText.replace('`',"'") +'`)'+ _catch;
-
 myIframe.contentWindow.document.head.appendChild(script);
 myIframe.contentWindow.document.body.scrollTop = myIframe.contentWindow.document.body.scrollHeight
 
 }
-	function colorcoding() {
+function colorcoding() {
 		//codeHighlighter(document.getElementById("code"));
 		
   var ua = navigator.userAgent;
@@ -204,4 +260,4 @@ myIframe.contentWindow.document.body.scrollTop = myIframe.contentWindow.document
 	    addModeClass: true,
 	matchBrackets: true
 	*/
-console.log("JS-EDITOR-LOADED")
+// console.log("JS-EDITOR-LOADED")

@@ -2,32 +2,18 @@
 <html>
     <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<link rel="apple-touch-icon" sizes="57x57" href="./img/icons/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="./img/icons/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="./img/icons/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="./img/icons/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="./img/icons/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="./img/icons/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="./img/icons/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="./img/icons/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="./img/icons/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"  href="./img/icons/android-icon-192x192.png">
 <link rel="icon" type="image/png" sizes="32x32" href="./img/icons/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="./img/icons/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="16x16" href="./img/icons/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="./img/icons/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
-	 <link rel="stylesheet" href="./css/doc.css-off"/>
-	 <link rel="stylesheet" href="./css/codemirror.css"/>
-	 <link rel="stylesheet" type="text/css" href="./css/style.css"/>
-	 
+	<link rel="stylesheet" href="./css/codemirror.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/split-styles.css">
 <script src="./js/codemirror.js"></script>
 <script src="./js/jspad.js"></script>
 <script src="./js/mode/javascript/javascript.js"></script>
-<script src="./js/addon/selection/active-line.js"></script>
 <script src="./js/split.min.js"></script>
 
     </head>
@@ -39,8 +25,13 @@
 	<li id="btnRefresh"><a href="#" onclick="refreshWindow();">Refresh</a></li>
 	<li id="btnSave"><a href="#" onclick="saveCode();">save</a></li>
 	<li id="btnLoad"><a href="#" onclick="loadCode();">load</a></li>
+	<li id="btnLoad"><a href="#" onclick="exportCode();">export</a></li>
+	<li id="btnLoad"><a href="#" onclick="importCode();">import</a></li>
 	</ul >
 	</nav>
+	<div id="importFileDiv">
+		<input type="file" id="importedFile">
+	</div>
     <div class="content">
 
         <div class="split code-editor">
@@ -52,7 +43,7 @@ for(i=10;i>0;i--){
 console.log("I love JSpad!!!");
 </textarea>
 
-		</div>
+	</div>
         <div class="split code-log">
 		
 		<iframe onload="iFrameSetup()" src="" id="console-log" frameborder="0"></iframe>
@@ -60,17 +51,17 @@ console.log("I love JSpad!!!");
 		</div>
     </div>
     
-    <script>
+    <script defer>
       Split(['.code-editor', '.code-log'], {
         gutterSize: 5,
-        sizes: [50,50]
+        sizes: [60,40]
       });	
-
-//  window.editor.on("change", function () {window.editor.save();});
-
-
-colorcoding();
-//iFrameSetup();
-    </script>
+		colorcoding();
+	</script>
+<!-- The core Firebase JS SDK is always required and must be listed first
+<script defer src="/__/firebase/7.2.1/firebase-app.js"></script>
+<script defer src="/__/firebase/7.2.1/firebase-analytics.js"></script>
+<script defer src="/__/firebase/init.js"></script>
+-->
     </body>
 </html>
