@@ -93,7 +93,7 @@ myIframe.contentWindow.document.head.appendChild(cssLink);
 
 function importCode(){
 	//import code from a file.
-
+	alert('Importing File.')
 	try{
 		const file = document.getElementById('importedFile').files[0];
 		if(file){
@@ -104,6 +104,8 @@ function importCode(){
 			fileReader.onload = event => window.editor.setValue(event.target.result);
 			fileReader.onerror = error => console.error(error.message);
 			fileReader.readAsText(file);
+		}else{
+			alert('No file was selected.')
 		}
 	}catch(e){
 		console.error(e.message);
@@ -111,6 +113,7 @@ function importCode(){
 }
 
 function exportCode(){
+	alert('Exporting Code to File.')
 	try{
 		const blob = new Blob([window.editor.getValue()],{type:"application/javascript"})
 		const url = window.URL.createObjectURL(blob); 
@@ -125,11 +128,11 @@ function exportCode(){
 	}
 }
 
-function saveCode(){
+function saveCode(slot='new'){
 // Put the object into storage
 try {
 	const savedJson = localStorage.getItem('jsPadSave') ? JSON.parse(localStorage.getItem('jsPadSave')) : {}
-	savedJson['new'] = JSON.stringify(window.editor.getValue())
+	savedJson[slot] = JSON.stringify(window.editor.getValue())
 	localStorage.setItem('jsPadSave', JSON.stringify(savedJson))
 	console.log('CODE SAVED');
 	alert('Code Saved')
@@ -155,7 +158,7 @@ localStorage.setItem('code',window.editor.getValue());
 
 }
 
-function loadCode(){
+function loadCode(slot = 'new'){
 	// Retrieve the object from storage
 // document.getElementById("code").value = localStorage.getItem('code');
 // console.log(localStorage.getItem('code'));
@@ -168,7 +171,7 @@ function loadCode(){
 	document.getElementById("code").value = window.editor.getValue();
 	try {
 		const savedJson = localStorage.getItem('jsPadSave') ? JSON.parse(localStorage.getItem('jsPadSave')) : {}
-		const codeOutput = JSON.parse(savedJson['new'].toString() || '')
+		const codeOutput = JSON.parse(savedJson[slot].toString() || '')
 		window.editor.setValue(codeOutput)
 		console.log(codeOutput)
 

@@ -1,67 +1,328 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<link rel="icon" type="image/png" sizes="32x32" href="./img/icons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="./img/icons/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="./img/icons/favicon-16x16.png">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="./img/icons/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
-	<link rel="stylesheet" href="./css/codemirror.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/split-styles.css">
-<script src="./js/codemirror.js"></script>
-<script src="./js/jspad.js"></script>
-<script src="./js/mode/javascript/javascript.js"></script>
-<script src="./js/split.min.js"></script>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="./img/icons/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="96x96"
+            href="./img/icons/favicon-96x96.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="./img/icons/favicon-16x16.png"
+        />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta
+            name="msapplication-TileImage"
+            content="./img/icons/ms-icon-144x144.png"
+        />
+        <meta name="theme-color" content="#ffffff" />
 
+        <!-- jQuery -->
+        <script src="./frameworks/jquery/js/jquery-3.3.1.min.js"></script>
+        <!-- <script src="./frameworks/jquery/js/jquery.UI-1.12.1.min.js"></script> -->
+        <!-- Firebase       <script src="./scripts/firebase.js"></script>            -->
+
+        <!-- Firechat internal           <script src="./scripts/firechat.js"></script>                  -->
+
+        <!-- Bootstrap 
+		<script src="./scripts/bootstrap-modal.min.js"></script>
+			<script src="./scripts/popper.min.js"></script>
+	    -->
+
+        <script src="./frameworks/bootstrap/js/bootstrap.js"></script>
+
+        <!-- Bootstrap & jqueryUI    /styles/bootstrap-responsive.min.css    <link rel="stylesheet" href="./frameworks/jquery/css/jquery.UI.css" /> -->
+        <link
+            rel="stylesheet"
+            href="./frameworks/bootstrap/css/bootstrap.css"
+        />
+        <!-- <link rel="stylesheet" href="./frameworks/bootstrap/themes/materia/bootstrap.css" /> -->
+
+        <!-- Firechat css  	<link rel="stylesheet" href="./styles/firechat.min.css" />  -->
+
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="./frameworks/fontawesome/css/font-awesome.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="./frameworks/fontawesome/css/pygments-borland.css"
+        />
+
+        <link href="./img/icons/favicon.ico" rel="shortcut icon" />
+
+        <link
+            rel="stylesheet"
+            href="./frameworks/codemirror/css/codemirror.css"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="./frameworks/jspad/css/style.css"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="./frameworks/split_styles/css/split-styles.css"
+        />
+        <!-- <link rel="stylesheet" type="text/css" href="./frameworks/bootstrap/css/bootstrap.css"> -->
+        <script src="./frameworks/codemirror/js/codemirror.js"></script>
+        <script src="./frameworks/jspad/js/jspad.js"></script>
+        <script src="./frameworks/codemirror/js/mode/javascript/javascript.js"></script>
+        <script src="./frameworks/split_styles/js/split.min.js"></script>
     </head>
     <body>
-	<nav>
-	<ul>
-	<li id="btnRun"><a href="#" onclick="runCode();">run&#10095;</a></li>
-	<li id="btnClear"><a href="#" onclick="clearConsole();">clear console</a></li>
-	<li id="btnRefresh"><a href="#" onclick="refreshWindow();">Refresh</a></li>
-	<li id="btnSave"><a href="#" onclick="saveCode();">save</a></li>
-	<li id="btnLoad"><a href="#" onclick="loadCode();">load</a></li>
-	<li id="btnLoad"><a href="#" onclick="exportCode();">export</a></li>
-	<li id="btnLoad"><a href="#" onclick="importCode();">import</a></li>
-	</ul >
-	</nav>
-	<div id="importFileDiv">
-		<input type="file" id="importedFile">
-	</div>
-    <div class="content">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <a class="navbar-brand" href="#">JSPad</a>
+                        <button
+                            class="navbar-toggler"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                        >
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
 
-        <div class="split code-editor">
+                        <div
+                            class="collapse navbar-collapse"
+                            id="navbarSupportedContent"
+                        >
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item" id="btnRun">
+                                    <a
+                                        class="nav-link"
+                                        href="#"
+                                        onclick="runCode();"
+                                        >run&#10095;</a
+                                    >
+                                </li>
+                                <li class="nav-item">
+                                    <a
+                                        href="#"
+                                        class="nav-link"
+                                        onclick="clearConsole();"
+                                        >clear console</a
+                                    >
+                                </li>
+                                <li class="nav-item">
+                                    <a
+                                        href="#"
+                                        class="nav-link"
+                                        onclick="refreshWindow();"
+                                        >Refresh</a
+                                    >
+                                </li>
 
-<textarea id='code'> 
+                                <li class="nav-item dropdown">
+                                    <a
+                                        class="nav-link dropdown-toggle"
+                                        href="#"
+                                        id="navbarDropdown"
+                                        role="button"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                    >
+                                        Code
+                                    </a>
+                                    <div
+                                        class="dropdown-menu"
+                                        aria-labelledby="navbarDropdown"
+                                    >
+                                        <div id="savelist">
+
+										</div>
+                                        <div class="dropdown-divider"></div>
+                                        <a
+                                            class="dropdown-item"
+											href="#"
+											id="saveButton"
+											data-toggle="modal"
+											data-target="#newSaveName"
+											onclick="document.getElementById('savename').value = ''"                                            
+                                            >&plus;New Save</a>
+                                    </div>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a
+                                        class="nav-link"
+                                        href="#"
+                                        onclick="exportCode();"
+                                        >export</a
+                                    >
+                                </li>
+                                <li class="nav-item">
+                                    <a
+                                        class="nav-link"
+                                        href="#"
+                                        data-toggle="modal"
+										data-target="#exampleModalLive"
+										onclick="document.getElementById('importedFile').value = ''" 
+                                        >import</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <div
+                        id="exampleModalLive"
+                        class="modal fade"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="exampleModalLiveLabel"
+                        aria-hidden="true"
+                    >
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5
+                                        class="modal-title"
+                                        id="exampleModalLiveLabel"
+                                    >
+                                        Import JavaScript File
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Select JavaScript file to imoprt.</p>
+                                    <input type="file" id="importedFile" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button
+                                        type="button"
+                                        class="btn btn-danger"
+                                        data-dismiss="modal"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary"
+                                        data-dismiss="modal"
+                                        onclick="importCode()"
+                                    >
+                                        Import
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+					
+					<div
+                        id="newSaveName"
+                        class="modal fade"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="exampleModalLiveLabel"
+                        aria-hidden="true"
+                    >
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5
+                                        class="modal-title"
+                                        id="exampleModalLiveLabel"
+                                    >
+                                        New Save
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Enter new savename.</p>
+                                    <input type="text" id="savename" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button
+                                        type="button"
+                                        class="btn btn-danger"
+                                        data-dismiss="modal"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-success"
+                                        data-dismiss="modal"
+                                        onclick="newSaveCode();"
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+					
+                    <div class="content maxHeight" >
+                        <div class="split code-editor">
+							<div class="title jspad-menu-item small">
+								<button type="button" class="btn btn-primary" 
+data-toggle="tooltip" data-placement="bottom" title="Save Code"
+onclick="saveCodeMain();" aria-label="Close">
+            <span aria-hidden="true">save</span>
+		  </button>
+								<div class="codeName dropdown-item" id="codename">Unnamed Code</div>
+</div>
+                            <textarea id="code">
+ 
 for(i=10;i>0;i--){
 	console.log(i);
 }
 console.log("I love JSpad!!!");
-</textarea>
-
-	</div>
-        <div class="split code-log">
-		
-		<iframe onload="iFrameSetup()" src="" id="console-log" frameborder="0"></iframe>
-		
-		</div>
-    </div>
-    
-    <script defer>
-      Split(['.code-editor', '.code-log'], {
-        gutterSize: 5,
-        sizes: [60,40]
-      });	
-		colorcoding();
-	</script>
-<!-- The core Firebase JS SDK is always required and must be listed first
-<script defer src="/__/firebase/7.2.1/firebase-app.js"></script>
-<script defer src="/__/firebase/7.2.1/firebase-analytics.js"></script>
-<script defer src="/__/firebase/init.js"></script>
--->
+							</textarea>
+                        </div>
+                        <div class="split code-log">
+							<div class="alerts"></div>
+                            <iframe
+                                onload="iFrameSetup()"
+                                src=""
+                                id="console-log"
+                                frameborder="0"
+                            ></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
+    <script>
+        Split(['.code-editor', '.code-log'], {
+            gutterSize: 5,
+            sizes: [60, 40]
+        });
+		colorcoding();
+		getFileList();
+    </script>
 </html>
