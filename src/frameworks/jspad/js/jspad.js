@@ -58,7 +58,10 @@ if (window.console && console) {
             }
         }
     }
-}`;
+}
+
+`;
+
     //<span style="font-weight:bold;">&#65310;</span>
     //&#10132; ➔ &#10148; ➤ &#65310; ＞ ❯  &#10095;
 
@@ -95,7 +98,8 @@ function getFileList() {
     const saveObject = JSON.parse(localStorage.getItem('jsPadSave') || {});
     const saveFiles = Object.keys(saveObject);
     let savelist = saveFiles.reduce(
-        (l, f) => l +
+        (l, f) =>
+            l +
             `
 		<div class="jspad-menu-item small">
 <a class="dropdown-item"
@@ -116,7 +120,6 @@ onclick="deleteCode('${f}');" aria-label="Close">
 `,
         ''
     );
-
 
     document.getElementById('savelist').innerHTML = '';
     document.getElementById('savelist').innerHTML = savelist;
@@ -305,6 +308,27 @@ function clearConsole() {
     alerts('Console Cleared.', 'success');
     //myIframe.scrollTop = myIframe.scrollHeight;
     //iFrameSetup();
+}
+
+function runCodeIframe() {
+    console.log('Running Code...');
+    let myIframe = document.getElementById('console-log');
+    let codexValue = window.editor.getValue(); // "alert('hello')";
+
+    codexValue = codexValue
+        .trim()
+        .replace(/"/g, '~j~')
+        .replace(/\"/g, '~j~')
+        .replace(/\n/g, '~jn~')
+        .replace(/\t/g, '~jt~');
+    let codeScript = codexValue; //JSON.stringify(codexValue);
+    codeScript = codeScript.replace(/"/g, '~~~');
+    // codeScript = codeScript.replace(/\n/g, '*|n*').replace(/\t/g, '*|t*');
+    console.log(codeScript);
+    myIframe.setAttribute(
+        'src',
+        'console.html?script={"script":"{' + codeScript + '}"}'
+    );
 }
 
 function runCode() {

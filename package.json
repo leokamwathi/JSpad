@@ -4,6 +4,7 @@
   "description": "JSpad is an offline JavaScript Editor where you can quickly write and test your JS code on your browser (Chrome). I got tired of using chrome console or online tools to test and try my js code. ",
   "main": "server.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

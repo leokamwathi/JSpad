@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Console</title>
+           <link
+            rel="stylesheet"
+            href="./css/iframe.css"/>
+ 
+    </head>
+    <body>
+
+    </body>
+            <script>
+            let fakeInput = '&#10095;';
+if (window.console && console) {
+    for (let c in console) {
+        if (typeof console[c] === 'function') {
+            let cx = console[c]
+            console[c] = function (...message) {
+				let msg = [...message].join('');
+					if([...message].length!=0 || msg!='' || msg.length!=0 || msg!=undefined || msg!=null){
+						if(c=='log'){
+							msg ='<p class="console '+c+'"><span class="symbol">'+fakeInput+'</span> '+msg+'</p>';
+						}else if(c=='warn'){
+							msg ='<p class="console '+c+'"><span class="symbol">'+fakeInput+'</span> '+msg+'</p>';
+						}else if(c=='error'){
+							msg = '<p class="console '+c+'"><span class="symbol">'+fakeInput+'</span> '+msg+'</p>';
+						}else if(c=='trace'){
+							msg = '<p class="console '+c+'"><span class="symbol">'+fakeInput+'</span> Trace Output<br/>'+msg+'</p>';
+						}else{
+							msg ='<p class="console info"><span class="symbol">'+fakeInput+'</span> '+msg+'</p>';
+						}
+						document.body.innerHTML += msg;
+					}
+                cx.apply(this, [...message])
+            }
+        }
+    }
+}
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const scriptStr = urlParams.get('script');
+                // console.log(scriptStr)
+                const script = JSON.parse(scriptStr);
+                if (script) { 
+                    let codex = script.script
+                    // console.log(codex) 
+                    codex = codex.replace(/~~~/g,'"')
+                        .replace(/~j~/g,'"')
+                        .replace(/~jn~/g,'\n')
+                        .replace(/~jt~/g,'\t')
+                    //console.log(codex)       
+                        eval(codex)
+                }
+            } catch (error) {
+                console.log('ERROR!!!', error.message); 
+            }
+            //.replace(/[\*^*]/g,'"').replace(/[\*|*]/g,'"').replace(/[\*|n*]/g,'\n').replace(/[\*|t*]/g,'\t')
+        </script>
+</html>

@@ -12,6 +12,10 @@ nav li {
 }
 */
 
+body{
+	
+}
+
 nav li a {
 
 /*
@@ -26,7 +30,8 @@ nav li a {
 
 .maxHeight{
 	width: 100%;
-	min-height: 560px;
+	min-height:520px;
+	max-height:520px;
 }
 
 .jspad-menu-item {
@@ -101,7 +106,15 @@ xnav {
 	background-color:#eee;
 	height: 100%;
 	width:100%;
+	min-height: 100%;
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
 	box-sizing:border-box;	
 	}
+
+.code-editor{
+
+height: 100%;
+	width:100%;
+	min-height: 100%;	
+}
