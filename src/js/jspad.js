@@ -29,7 +29,15 @@ IDEA/WISH LIST
 
 
 function refreshWindow(){
+	try{
+	myWorker.terminate();
+	alerts('Excution Terminated.');
+	}catch{}	
 	window.location.reload();
+}
+
+function terminate(){
+	
 }
 
 function iFrameSetup(bypass=false){
